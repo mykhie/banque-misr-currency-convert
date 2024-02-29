@@ -1,8 +1,8 @@
 import {Injectable, Injector} from '@angular/core';
 import {HttpService} from "./http.service";
 import {BehaviorSubject, catchError, map, throwError} from "rxjs";
-import {environment} from "@app/environments/environment";
-import {ConversionModel} from "@app/app/models";
+import {environment} from "src/environments/environment";
+import {ConversionModel} from "@app/models";
 
 @Injectable({
   providedIn: 'root'
