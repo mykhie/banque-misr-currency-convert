@@ -1,17 +1,6 @@
 <div class="">
-  <div class="flex-row align-items-center justify-content-between">
-    <h4 *ngIf="!fromCurrency">Currency Converter</h4>
-    <h4 class="" *ngIf="fromCurrency">
-      {{ fromCurrency }} - {{ returnCurrencyName }}
-    </h4>
-    <div class="">
-      <a [routerLink]="['/']" class="btn ">
-        <i class="bi bi-back"></i> Back to Home
-      </a>
-    </div>
-  </div>
 
-  <div class="card p-3">
+  <div class="card flex-column">
     <form [formGroup]="conversionForm" class="flex-column w-100" (ngSubmit)="getConversion()">
       <div class="flex-row ">
         <div class="flex-column" style="width: 33%">
@@ -19,8 +8,8 @@
           <input class="text-input"
                  [class.border-danger]="submitted && conversionFormControl['amount'].errors"
                  placeholder="input amount" formControlName="amount">
-          <div *ngIf="submitted && conversionFormControl['amount'].errors"
-               [style.display]="'block'" class="invalid-feedback">
+          <small *ngIf="submitted && conversionFormControl['amount'].errors"
+               [style.display]="'block'" class="has-error">
 
             <div *ngIf="conversionFormControl['amount'].errors['required']">
               Amount is required
@@ -28,29 +17,29 @@
             <div *ngIf="conversionFormControl['amount'].errors['pattern']">
               Please enter a valid amount
             </div>
-          </div>
+          </small>
         </div>
         <div class="flex-row flex-grow-1" style="padding: 0 24px">
           <div class="flex-column flex-grow-1">
             <label class="">From</label>
             <select class="text-input"
+                    (change)="onChangeEmitCurrencyName()"
                     [class.border-danger]="submitted && conversionFormControl['from'].errors"
-                    [attr.disabled]="fromCurrency"
                     formControlName="from">
-              <option>--SELECT CURRENCY--</option>
+              <option selected disabled>--SELECT CURRENCY--</option>
               <option *ngFor="let currency of getCurrencyKeys"
                       [value]="currency"
               >
                 {{ currency }}
               </option>
             </select>
-            <div *ngIf="submitted && conversionFormControl['from'].errors"
-                 [style.display]="'block'" class="invalid-feedback">
+            <small *ngIf="submitted && conversionFormControl['from'].errors"
+                 [style.display]="'block'" class="has-error">
 
               <div *ngIf="conversionFormControl['from'].errors['required']">
                 From currency is required
               </div>
-            </div>
+            </small>
           </div>
           <div class="flex-column justify-content-end"
 
@@ -74,28 +63,30 @@
                 {{ currency }}
               </option>
             </select>
-            <div *ngIf="submitted && conversionFormControl['to'].errors"
-                 [style.display]="'block'" class="invalid-feedback">
+            <small *ngIf="submitted && conversionFormControl['to'].errors"
+                 [style.display]="'block'" class="has-error">
 
               <div *ngIf="conversionFormControl['to'].errors['required']">
                 To currency is required
               </div>
-            </div>
+            </small>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col py-2">
-          <button class="btn btn-primary btn-lg w-100" type="submit"
-                  [disabled]="isConverting||conversionForm.invalid">
-            <div class="spinner-border text-white spinner-border-sm" role="status" *ngIf="isConverting">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            Convert
-          </button>
-        </div>
+      <div class="flex justify-content-end">
+        <button class="btn" [style.width]="'66%'" type="submit"
+                [class.disabled]="isConverting||conversionForm.invalid">
+          <div class="spinner-border text-white spinner-border-sm" role="status" *ngIf="isConverting">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          Convert
+        </button>
       </div>
-
     </form>
+    <app-error [error]="errorMessage"></app-error>
+  </div>
+
+  <div >
+
   </div>
 </div>

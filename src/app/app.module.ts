@@ -11,10 +11,13 @@ import { MainCurrencyPageComponent } from './components/currency/main-currency-p
 import { ConversionFormComponent } from './components/currency/conversion-form/conversion-form.component';
 import { HistoricalDataComponent } from './components/currency/historical-data/historical-data.component';
 import {RouterModule} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ErrorComponent } from './components/shared/error/error.component';
+import {TokenInterceptor} from "@app/interceptors";
+import { CurrencyDetailsCardComponent } from './components/currency/currency-details-card/currency-details-card.component';
+import { PageHeaderComponent } from './components/shared/page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { ErrorComponent } from './components/shared/error/error.component';
     MainCurrencyPageComponent,
     ConversionFormComponent,
     HistoricalDataComponent,
-    ErrorComponent
+    ErrorComponent,
+    CurrencyDetailsCardComponent,
+    PageHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,11 @@ import { ErrorComponent } from './components/shared/error/error.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

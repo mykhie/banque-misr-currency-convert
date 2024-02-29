@@ -1,1 +1,17 @@
-<p>main-currency-page works!</p>
+
+<div>
+
+  <div class="container">
+    <app-page-header [selectedFrequency]="fromCurrency" ></app-page-header>
+    <div class="white-main-container">
+      <div class="">
+        <app-conversion-form
+          (updateSelectedCurrency)="updateSelectedCurrency($event)"
+        ></app-conversion-form>
+      </div>
+      <div class="card" [style.margin-top]="'20px'">
+
+      </div>
+    </div>
+  </div>
+</div>

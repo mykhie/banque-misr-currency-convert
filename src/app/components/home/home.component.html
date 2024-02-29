@@ -1,5 +1,24 @@
 <div>
-  <div class="">
-    <app-conversion-form></app-conversion-form>
+
+  <div class="container">
+    <app-page-header
+      [hideBackBtn]="true"
+      [selectedFrequency]="fromCurrency"
+    ></app-page-header>
+    <div class="white-main-container">
+      <div class="">
+        <app-conversion-form
+          (conversionEmitter)="updateCurrentConversionObject($event)"
+          (updateSelectedCurrency)="updateSelectedCurrency($event)"
+        ></app-conversion-form>
+      </div>
+      <div class="card" [style.margin-top]="'20px'">
+        <div class="grid-container">
+          <div *ngFor="let item of arr" class="card flex-grow-1">
+            <app-currency-details-card [currencyDetails]="currentConversionObject" [flexDirection]="'column'"/>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

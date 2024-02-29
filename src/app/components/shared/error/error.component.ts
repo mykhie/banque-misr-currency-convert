@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {BaseComponent} from "@app/components/base/base.component";
 
 @Component({
@@ -6,6 +6,6 @@ import {BaseComponent} from "@app/components/base/base.component";
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent extends BaseComponent{
-
+export class ErrorComponent extends BaseComponent {
+  @Input() error: string | undefined;
 }

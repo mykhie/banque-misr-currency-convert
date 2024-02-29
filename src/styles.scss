@@ -5,12 +5,25 @@ body, html {
   padding: 0;
   margin: 0;
   background-color: lightgray;
-
+  .container {
+    padding: 20px;
+    margin: 60px auto;
+    width: 100%;
+    max-width: 1200px;
+    @media only screen and (max-width: 768px) {
+      margin: 72px 30px;
+    }
+  }
+  .white-main-container{
+    background-color: white;
+    border-radius: 30px;
+    min-height: 100px;
+    padding: 20px;
+  }
   .card {
     padding: 20px;
     border: 1px solid lightgray;
     display: flex;
-    flex-direction: row;
     border-radius: 20px;
 
     & > .currency-form {
@@ -26,7 +39,9 @@ body, html {
     height: 40px;
     color: white;
     padding: 0 10px;
+    border: none;
     justify-content: center;
+    text-decoration: none;
   }
 
   .text-input {
@@ -63,10 +78,22 @@ body, html {
     @extend .flex;
     flex-direction: column;
   }
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    @media only screen and (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 
   .justify-content-end {
     @extend .flex;
     justify-content: end
+  }
+  .justify-content-center {
+    @extend .flex;
+    justify-content: center;
   }
 
   .justify-content-between {
@@ -83,6 +110,14 @@ body, html {
   }
   .flex-grow-1{
     flex-grow: 1;
+  }
+  .disabled{
+    cursor: not-allowed;
+    color: white;
+    background-color: lightgray;
+  }
+  .has-error{
+    color: #ff210b;
   }
 ;
 }
