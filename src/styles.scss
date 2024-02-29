@@ -1,24 +1,88 @@
 @import "assets/styles/_variables";
-$primaryColor :'yellow';
+
+$primaryColor: 'yellow';
 body, html {
   padding: 0;
   margin: 0;
   background-color: lightgray;
-  & > .card {
+
+  .card {
     padding: 20px;
-    border: 1px solid darkgray;
+    border: 1px solid lightgray;
     display: flex;
     flex-direction: row;
-    @media only screen and (max-width: 768px) {
-      flex-direction: row;
+    border-radius: 20px;
+
+    & > .currency-form {
+
     }
   }
-  .btn{
-    border-radius: 5px;
-    height: 20px;
-    background-color: $primaryColor;
+
+  .btn {
+    border-radius: 10px;
+    background-color: blue;
     display: flex;
     align-items: center;
+    height: 40px;
+    color: white;
+    padding: 0 10px;
     justify-content: center;
   }
+
+  .text-input {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  .flex {
+    display: flex;
+    gap: 20px;
+  }
+
+  .flex-row {
+    @extend .flex;
+    flex-direction: row;
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .flex-column {
+    @extend .flex;
+    flex-direction: column;
+  }
+
+  .justify-content-end {
+    @extend .flex;
+    justify-content: end
+  }
+
+  .justify-content-between {
+    @extend .flex;
+    justify-content: space-between;
+  }
+  .align-items-center {
+    @extend .flex;
+    align-items: center;
+  }
+
+  .w-100 {
+    width: 100%;
+  }
+  .flex-grow-1{
+    flex-grow: 1;
+  }
+;
 }
