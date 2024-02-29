@@ -1,14 +1,16 @@
 <nav class="sticky-header">
   <div class="nav-container">
     <div>
-      Converter
+      <a class="brand" [routerLink]="['/currency-details','EUR','USD']" >
+        Converter
+      </a>
     </div>
     <div class="links-wrapper">
-      <a class="nav-link">
-        USD
+      <a class="nav-link" [routerLink]="['/currency-details','EUR','USD']" >
+        EUR-USD Details
       </a>
-      <a class="nav-link">
-        EUR
+      <a class="nav-link" [routerLink]="['/currency-details','EUR','GBP']">
+        EUR-GBP Details
       </a>
     </div>
   </div>

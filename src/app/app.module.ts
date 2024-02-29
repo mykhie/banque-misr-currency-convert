@@ -7,6 +7,9 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { BaseComponent } from './components/base/base.component';
 import { HomeComponent } from './components/home/home.component';
+import { MainCurrencyPageComponent } from './components/currency/main-currency-page/main-currency-page.component';
+import { ConversionFormComponent } from './components/currency/conversion-form/conversion-form.component';
+import { HistoricalDataComponent } from './components/currency/historical-data/historical-data.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { HomeComponent } from './components/home/home.component';
     PageNotFoundComponent,
     NavbarComponent,
     BaseComponent,
-    HomeComponent
+    HomeComponent,
+    MainCurrencyPageComponent,
+    ConversionFormComponent,
+    HistoricalDataComponent
   ],
   imports: [
     BrowserModule,
