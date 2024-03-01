@@ -3,6 +3,8 @@ import {Validators} from "@angular/forms";
 import {ConversionModel} from "@app/models/conversion-model";
 import {BaseComponent} from "@app/components/base/base.component";
 import {config} from "@app/constants/constants";
+import {ConvertedModel} from "@app/models";
+import {ErrorModel} from "@app/models/error-model";
 
 @Component({
   selector: 'app-conversion-form',
@@ -20,13 +22,13 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
   )
   submitted = false;
   currencyList: any;
-  currencyDetails: any;
+  currencyDetails: ConvertedModel | undefined;
   isConverting = false;
   @Input() showMoreLink = true;
-  @Input() fromCurrency: any = undefined;
+  @Input() fromCurrency: string | undefined | null = undefined;
   @Input() loadOnFormView = false;
-  @Output() readonly conversionEmitter = new EventEmitter<any>();
-  @Output() readonly updateSelectedCurrency = new EventEmitter<any>();
+  @Output() readonly conversionEmitter = new EventEmitter<ConvertedModel | undefined>();
+  @Output() readonly updateSelectedCurrency = new EventEmitter<string | undefined>();
   formSubmitted = false;
 
   constructor(injector: Injector) {
@@ -52,7 +54,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     }
 
     const data: ConversionModel = {
-      amount: this.conversionFormControl['amount']!.value || 1,
+      amount: this.conversionFormControl['amount'].value || 1,
       from: this.conversionFormControl['from'].value as string,
       to: this.conversionFormControl['to']!.value as string,
     }
@@ -60,15 +62,16 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     this.conversionEmitter.emit(undefined);
     this.formSubmitted = true;
     this.currencyService.formUpdates.next(data);
-    this.currencyService.getCurrencyConversion(data).subscribe((res: any) => {
+    this.currencyService.getCurrencyConversion(data).subscribe((res: ConvertedModel | ErrorModel) => {
       this.isConverting = false;
-      if (res?.error) {
-        this.showError(res?.error?.info || 'We failed to convert your currency');
+      if (typeof res === 'object' && (res as ErrorModel).code) {
+        this.showError((res as ErrorModel)?.error?.info || 'We failed to convert your currency');
         return;
       }
-      this.conversionEmitter.emit(res);
-      this.currencyDetails = res;
-    }, (error: any) => {
+      this.conversionEmitter.emit(res as ConvertedModel);
+      this.currencyDetails = res as ConvertedModel;
+
+    }, (error: ErrorModel) => {
       this.showError(error?.message);
       this.isConverting = false;
     });
@@ -111,11 +114,18 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
   }
 
   get returnCurrencyName() {
+    if (!this.fromCurrency) {
+      return '';
+    }
     return this.currencyList ? this.currencyList[this.fromCurrency] : '';
   }
 
   onChangeEmitCurrencyName() {
     this.fromCurrency = this.conversionFormControl['from']?.value;
-    this.updateSelectedCurrency.emit( `${this.fromCurrency} - ${this.currencyList[this.fromCurrency] ?? ''}`);
+    if (!this.fromCurrency) {
+      this.updateSelectedCurrency.emit('');
+      return;
+    }
+    this.updateSelectedCurrency.emit(`${this.fromCurrency} - ${this.currencyList[this.fromCurrency] ?? ''}`);
   }
 }

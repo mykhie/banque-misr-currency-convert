@@ -6,6 +6,6 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent {
-  @Input() selectedFrequency: string | undefined;
+  @Input() selectedFrequency: string | undefined | null = undefined;
   @Input() hideBackBtn = true;
 }

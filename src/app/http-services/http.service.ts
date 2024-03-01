@@ -1,6 +1,7 @@
 import {Injectable, Injector} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {config} from "../constants/constants"
+import {ErrorModel} from "@app/models/error-model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class HttpService {
 
 
 
-  handleError(error: any): any {
+  handleError(error: HttpErrorResponse): ErrorModel {
     const errorMsg: string = this.returnHttpErrorMessage(error);
     return {
       code: error?.status,
@@ -22,7 +23,7 @@ export class HttpService {
     };
   }
 
-  returnHttpErrorMessage(error: any): string {
+  returnHttpErrorMessage(error: HttpErrorResponse): string {
     if (error.error instanceof ErrorEvent) {
       return `Error: ${error.error.message}`;
     }

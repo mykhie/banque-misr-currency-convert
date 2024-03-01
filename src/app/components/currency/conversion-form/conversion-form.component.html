@@ -4,7 +4,7 @@
     <form [formGroup]="conversionForm" class="flex-column w-100" (ngSubmit)="getConversion()">
       <div class="flex-row ">
         <div class="flex-column flex-grow-1 amount-input">
-          <label class="">Amount</label>
+          <span class="">Amount</span>
           <input class="text-input"
                  [class.border-danger]="submitted && conversionFormControl['amount'].errors"
                  placeholder="input amount" formControlName="amount">
@@ -21,7 +21,7 @@
         </div>
         <div class="flex-row w-66" >
           <div class="flex-column flex-grow-1">
-            <label class="">From</label>
+            <span class="">From</span>
             <select class="text-input"
                     (change)="onChangeEmitCurrencyName()"
                     [class.border-danger]="submitted && conversionFormControl['from'].errors"
@@ -44,15 +44,15 @@
           <div class="flex-column justify-content-end"
 
           >
-                <span class="btn"
+                <button class="btn"
                       (click)="toggleCurrencies()"
                       [title]="'Click to toggle currencies'">
                   Toggle
-                </span>
+                </button>
 
           </div>
           <div class="flex-column flex-grow-1">
-            <label class="">To</label>
+            <span class="">To</span>
             <select class="text-input"
                     [class.border-danger]="submitted && conversionFormControl['to'].errors"
                     formControlName="to">

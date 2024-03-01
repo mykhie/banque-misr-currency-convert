@@ -1,25 +1,28 @@
-import {Component, Injector} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {BaseComponent} from "@app/components/base/base.component";
+import {ConvertedModel} from "@app/models";
 
 @Component({
   selector: 'app-main-currency-page',
   templateUrl: './main-currency-page.component.html',
   styleUrls: ['./main-currency-page.component.scss']
 })
-export class MainCurrencyPageComponent extends BaseComponent{
-  currentConversionObject: any = undefined;
+export class MainCurrencyPageComponent extends BaseComponent implements OnInit {
+  currentConversionObject: ConvertedModel | undefined = undefined;
   fromCurrency: string | undefined = undefined;
 
-  updateSelectedCurrency($event: any) {
+  updateSelectedCurrency($event: string | undefined) {
     this.fromCurrency = $event;
   }
-  updateConvertedCurrency($event: any) {
+
+  updateConvertedCurrency($event: ConvertedModel | undefined) {
     this.currentConversionObject = $event;
   }
 
-  selectedFromCurrency: any = undefined;
-  selectedToCurrency: any = undefined;
+  selectedFromCurrency: string | null = null;
+  selectedToCurrency: string | null = null;
   currencyName = '';
+
   constructor(injector: Injector) {
     super(injector);
   }
@@ -37,8 +40,8 @@ export class MainCurrencyPageComponent extends BaseComponent{
 
   updateFormPatchAndSubmit() {
     const formData = {
-      from: this.selectedFromCurrency,
-      to: this.selectedToCurrency,
+      from: this.selectedFromCurrency ?? 'USD',
+      to: this.selectedToCurrency ?? 'EUR',
       amount: 100,
     };
     this.currencyService.updateConversionForm(formData);

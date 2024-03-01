@@ -1,7 +1,7 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
-import {CurrencyService} from "@app/http-services/currency.service";
+import {CurrencyService} from "@app/http-services";
 
 @Component({
   selector: 'app-base',

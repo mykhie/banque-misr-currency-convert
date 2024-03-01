@@ -1,33 +1,35 @@
 import {Injectable, Injector} from '@angular/core';
 import {HttpService} from "./http.service";
-import {BehaviorSubject, catchError, delay, map, throwError} from "rxjs";
+import {BehaviorSubject, catchError, delay, map, Observable, throwError} from "rxjs";
 import {environment} from "src/environments/environment";
-import {ConversionModel, ConvertedModel} from "@app/models";
+import {ConversionModel, ConversionResponse, ConvertedModel} from "@app/models";
 import {HttpParams} from "@angular/common/http";
+import {ErrorModel} from "@app/models/error-model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencyService extends HttpService {
-  formUpdates: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
+  formUpdates: BehaviorSubject<ConversionModel | undefined> = new BehaviorSubject<ConversionModel | undefined>(undefined);
 
   constructor(injector: Injector) {
     super(injector);
   }
 
-  formatResponseData(data: any) {
+  formatResponseData(data:ConversionResponse | null | undefined) {
     const model: ConvertedModel = {
-      fromCurrency : data?.query.from,
-      toCurrency : data?.query.to,
-      amount : data?.query.amount || 0,
-      rate : data?.info.rate,
-      result : data.result,
+      fromCurrency: data?.query.from,
+      toCurrency: data?.query.to,
+      amount: data?.query.amount ?? 0,
+      rate: data?.info.rate ?? 0,
+      result: data?.result ?? 0,
     }
     return model;
   }
 
-  getCurrencyConversion(data: ConversionModel): any {
-    return this.httpClient.get<any>(`${environment.apiUrl}/convert?from=${data.from}&to=${data.to}&amount=${data.amount}`)
+
+  getCurrencyConversion(data: ConversionModel): Observable<ConvertedModel | ErrorModel> {
+    return this.httpClient.get<ConversionResponse>(`${environment.apiUrl}/convert?from=${data.from}&to=${data.to}&amount=${data.amount}`)
       //TODO: endpoint is failing due to subscription request with an interceptor
       .pipe(delay(1000), map(res => {
         return this.formatResponseData(res);
@@ -50,13 +52,13 @@ export class CurrencyService extends HttpService {
       );
   }
 
-  updateConversionForm(formData: any) {
+  updateConversionForm(formData: ConversionModel) {
     this.formUpdates.next(formData);
   }
 
   getHistoricalData(params: ConversionModel) {
     const queryParams = this.returnQueryParamString(params);
-    return this.httpClient.get<any>(`${environment.apiUrl}/timeseries`,{params:queryParams}).pipe(map(res => {
+    return this.httpClient.get<any>(`${environment.apiUrl}/timeseries`, {params: queryParams}).pipe(map(res => {
       return res;
     }))
       .pipe(
@@ -66,12 +68,12 @@ export class CurrencyService extends HttpService {
       );
 
   }
-  returnQueryParamString(queryParams:ConversionModel){
+
+  returnQueryParamString(queryParams: ConversionModel) {
     let params = new HttpParams();
-    for (let key in queryParams) {
-      if (queryParams.hasOwnProperty(key)) {
-        // @ts-ignore
-        params = params.set(key, queryParams[key]);
+    for (const key  in queryParams) {
+      if (Object.prototype.hasOwnProperty.call(queryParams, key)) {
+        params = params.set(key, queryParams[key] as keyof ConversionModel);
       }
     }
     return params;

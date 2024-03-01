@@ -13,7 +13,7 @@ export class HistoricalDataComponent extends BaseComponent {
   @Input() currencyFrom: string | undefined;
   @Input() currencyTo: string | undefined;
 
-  public labels: any[] = [];
+  public labels: string[] = [];
   chart: Chart<ChartType, string[], any> | undefined;
   public historicalData: any = undefined
   public dataSet: any = undefined
@@ -28,15 +28,16 @@ export class HistoricalDataComponent extends BaseComponent {
     this.currencyService.formUpdates.subscribe(res => {
       this.currencyFrom = res?.from;
       this.currencyTo = res?.to;
-      this.historicalData = this.currencyService
-        .getHistoricalData(res).subscribe(res => {
-          this.historicalData = res?.rates;
-          console.log(res);
-          this.returnCalendarDays();
-        }, error => {
-          this.showError(error?.message || 'Server error message occurred');
-        });
-
+      if(res?.from && res?.to) {
+        this.historicalData = this.currencyService
+          .getHistoricalData(res).subscribe(res => {
+            this.historicalData = res?.rates;
+            console.log(res);
+            this.returnCalendarDays();
+          }, error => {
+            this.showError(error?.message || 'Server error message occurred');
+          });
+      }
     });
 
   }

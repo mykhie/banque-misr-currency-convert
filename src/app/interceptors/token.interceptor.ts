@@ -10,9 +10,6 @@ import {environment} from '../../environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor() {
-  }
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     let newParams = new HttpParams({fromString: request.params.toString()});

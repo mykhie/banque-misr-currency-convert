@@ -1,5 +1,5 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
-import {Injectable, Injector} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 
 @Injectable()
@@ -45,13 +45,14 @@ export class FakerInterceptor implements HttpInterceptor {
         }
       }
     }
-  };
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const searchParams = new URLSearchParams(request.url.split('?')[1]);
-    let fromCurrency = searchParams.get("from") ?? 'USD';
-    let toCurrency = searchParams.get("to") ?? 'EUR';
+    const fromCurrency = searchParams.get("from") ?? 'USD';
+    const toCurrency = searchParams.get("to") ?? 'EUR';
+    console.log(request.url);
     if (request.method === "GET" && request.url.includes('convert')) {
       return of(new HttpResponse({status: 200, body: this.returnCurrency(fromCurrency, toCurrency)}));
     }

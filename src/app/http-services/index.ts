@@ -1,1 +1,2 @@
-import {HttpService} from "./http.service";
+export {HttpService} from "./http.service";
+export {CurrencyService} from "./currency.service";
