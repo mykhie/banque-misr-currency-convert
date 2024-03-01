@@ -38,7 +38,9 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     this.conversionForm.reset();
     this.currencyService.formUpdates.subscribe((res: any) => {
       this.conversionForm.patchValue(res);
-      this.getConversion();
+      if (!this.showMoreLink) {
+        this.getConversion();
+      }
     })
   }
 
@@ -57,6 +59,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     this.isConverting = true;
     this.conversionEmitter.emit(undefined);
     this.formSubmitted = true;
+    this.currencyService.formUpdates.next(data);
     this.currencyService.getCurrencyConversion(data).subscribe((res: any) => {
       this.isConverting = false;
       if (res?.error) {
@@ -113,6 +116,6 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
 
   onChangeEmitCurrencyName() {
     this.fromCurrency = this.conversionFormControl['from']?.value;
-    this.updateSelectedCurrency.emit(`${this.fromCurrency} - ${this.currencyList[this.fromCurrency] ?? ''}`);
+    this.updateSelectedCurrency.emit( `${this.fromCurrency} - ${this.currencyList[this.fromCurrency] ?? ''}`);
   }
 }

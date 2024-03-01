@@ -1,9 +1,9 @@
 <div class="flex" *ngIf="currencyDetails" [style.flex-direction]="flexDirection">
   <h5 class="flex-grow-1 align-items-center justify-content-center">
-    1 {{ currencyDetails.fromCurrency }} = {{ currencyDetails.rate |currency : currencyDetails.toCurrency }}
+    1 {{ currencyDetails.fromCurrency }} = {{ currencyDetails.rate |currency : currencyDetails.toCurrency+' ' }}
   </h5>
   <div class="card flex-grow-1 justify-content-center align-items-center">
-    <h1>{{ currencyDetails.result | currency: currencyDetails.toCurrency }}</h1>
+    <h1>{{ currencyDetails.result | currency: currencyDetails.toCurrency+' ' }}</h1>
   </div>
   <div class=" flex-grow-1 align-items-center justify-content-center" *ngIf="showViewMoreBtn">
     <a  [routerLink]="['currency-details',currencyDetails?.fromCurrency,currencyDetails?.toCurrency]"

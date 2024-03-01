@@ -27,7 +27,7 @@ export class CurrencyService extends HttpService {
   }
 
   getCurrencyConversion(data: ConversionModel): any {
-    return this.httpClient.get<any>(`${environment.apiUrl}/convert?to=${data.to}&from=${data.from}&amount=${data.amount}`)
+    return this.httpClient.get<any>(`${environment.apiUrl}/convert?from=${data.from}&to=${data.to}&amount=${data.amount}`)
       //TODO: endpoint is failing due to subscription request with an interceptor
       .pipe(delay(1000), map(res => {
         return this.formatResponseData(res);
