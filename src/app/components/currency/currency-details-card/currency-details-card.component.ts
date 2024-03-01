@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {ConvertedModel} from "@app/models";
 
 @Component({
   selector: 'app-currency-details-card',
@@ -7,5 +8,6 @@ import {Component, Input} from '@angular/core';
 })
 export class CurrencyDetailsCardComponent {
   @Input() flexDirection: any='row';
-  @Input() currencyDetails: any;
+  @Input() currencyDetails: ConvertedModel | undefined =undefined;
+  @Input() showViewMoreBtn =true;
 }

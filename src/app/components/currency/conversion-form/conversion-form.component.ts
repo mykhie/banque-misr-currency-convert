@@ -64,6 +64,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
         this.showError(res?.error?.info || 'We failed to convert your currency');
         return;
       }
+      console.log(res);
       this.conversionEmitter.emit(res);
       this.currencyDetails = res;
     }, (error: any) => {

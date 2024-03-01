@@ -1,8 +1,8 @@
 import {Injectable, Injector} from '@angular/core';
 import {HttpService} from "./http.service";
-import {BehaviorSubject, catchError, map, throwError} from "rxjs";
+import {BehaviorSubject, catchError, delay, map, throwError} from "rxjs";
 import {environment} from "src/environments/environment";
-import {ConversionModel} from "@app/models";
+import {ConversionModel, ConvertedModel} from "@app/models";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,23 @@ export class CurrencyService extends HttpService {
     super(injector);
   }
 
+  formatResponseData(data: any) {
+    const model: ConvertedModel = {
+      fromCurrency : data?.query.from,
+      toCurrency : data?.query.to,
+      amount : data?.query.amount || 0,
+      rate : data?.info.rate,
+      result : data.result,
+    }
+    return model;
+  }
+
   getCurrencyConversion(data: ConversionModel): any {
-    return this.httpClient.get<any>(`${environment.apiUrl}/convert?to=${data.to}&from=${data.from}&amount=${data.amount}`).pipe(map(res => {
-      return res;
-    }))
+    return this.httpClient.get<any>(`${environment.apiUrl}/convert?to=${data.to}&from=${data.from}&amount=${data.amount}`)
+      .pipe(delay(1000), map(res => {
+        console.log(res);
+        return this.formatResponseData(res);
+      }))
       .pipe(
         catchError(error => {
           return throwError(() => this.handleError(error));
@@ -27,7 +40,6 @@ export class CurrencyService extends HttpService {
 
   getCurrencyList(): any {
     return this.httpClient.get<any>(`${environment.apiUrl}/symbols`).pipe(map(res => {
-
       return res?.symbols;
     }))
       .pipe(
@@ -42,30 +54,6 @@ export class CurrencyService extends HttpService {
   }
 
   getHistoricalData(currencyFrom = 'EUR', currencyTo = 'USD') {
-
-    const data = {
-      "success": true,
-      "timeseries": true,
-      "start_date": "2012-05-01",
-      "end_date": "2012-05-03",
-      "base": currencyFrom,
-      "rates": {
-        "2012-01-31": {
-          [currencyFrom]: 1.322891,
-          [currencyTo]: 1.278047,
-        },
-        "2012-02-28": {
-          [currencyFrom]: 1.315066,
-          [currencyTo]: 1.274202,
-        },
-        "2012-03-31": {
-          [currencyFrom]: 1.314491,
-          [currencyTo]: 1.280135,
-        }
-      }
-    };
-    console.log(data);
-    return data.rates;
 
   }
 }

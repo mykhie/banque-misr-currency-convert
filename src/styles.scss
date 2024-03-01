@@ -36,7 +36,7 @@ body, html {
 
   .btn {
     border-radius: 10px;
-    background-color: blue;
+    background-color: #1a75ff;
     display: flex;
     align-items: center;
     height: 40px;
@@ -45,6 +45,7 @@ body, html {
     border: none;
     justify-content: center;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .text-input {
@@ -82,6 +83,7 @@ body, html {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
+    width: 100%;
     @media only screen and (max-width: 768px) {
       grid-template-columns: repeat(1, 1fr);
     }
