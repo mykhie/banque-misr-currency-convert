@@ -7,7 +7,7 @@ import {ConvertedModel} from "@app/models";
   styleUrls: ['./currency-details-card.component.scss']
 })
 export class CurrencyDetailsCardComponent {
-  @Input() flexDirection: any='row';
+  @Input() flexDirection: string='row';
   @Input() currencyDetails: ConvertedModel | undefined =undefined;
   @Input() showViewMoreBtn =true;
 }

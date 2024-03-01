@@ -56,7 +56,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     const data: ConversionModel = {
       amount: this.conversionFormControl['amount'].value || 1,
       from: this.conversionFormControl['from'].value as string,
-      to: this.conversionFormControl['to']!.value as string,
+      to: this.conversionFormControl['to'].value as string,
     }
     this.isConverting = true;
     this.conversionEmitter.emit(undefined);
@@ -86,7 +86,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     this.currencyService.getCurrencyList().subscribe((res: any) => {
       this.isLoadingFalse();
       this.currencyList = res;
-    }, (error: any) => {
+    }, (error: ErrorModel) => {
       this.showError(error?.message);
       this.isLoadingFalse();
     });

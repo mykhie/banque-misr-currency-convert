@@ -1,4 +1,4 @@
-import {Component, Injector, Input} from '@angular/core';
+import {Component, Injector, Input, OnInit} from '@angular/core';
 import {BaseComponent} from "@app/components/base/base.component";
 import {ChartType} from "chart.js";
 import Chart from 'chart.js/auto';
@@ -8,7 +8,7 @@ import Chart from 'chart.js/auto';
   templateUrl: './historical-data.component.html',
   styleUrls: ['./historical-data.component.scss']
 })
-export class HistoricalDataComponent extends BaseComponent {
+export class HistoricalDataComponent extends BaseComponent implements OnInit{
 
   @Input() currencyFrom: string | undefined;
   @Input() currencyTo: string | undefined;
@@ -28,7 +28,7 @@ export class HistoricalDataComponent extends BaseComponent {
     this.currencyService.formUpdates.subscribe(res => {
       this.currencyFrom = res?.from;
       this.currencyTo = res?.to;
-      if(res?.from && res?.to) {
+      if (res?.from && res?.to) {
         this.historicalData = this.currencyService
           .getHistoricalData(res).subscribe(res => {
             this.historicalData = res?.rates;
@@ -47,19 +47,22 @@ export class HistoricalDataComponent extends BaseComponent {
     this.labels = Object.keys(this.historicalData);
     this.labels = this.labels.map(mon => this.months[new Date(mon).getMonth()]);
 
-
-    this.dataSet = [
-      {
-        label: this.currencyFrom,
-        data: Object.values(this.historicalData).map((val: any) => val[this!.currencyFrom!]),
-        backgroundColor: 'limegreen'
-      },
-      {
-        label: this.currencyTo,
-        data: Object.values(this.historicalData).map((val: any) => val[this!.currencyTo!]),
-        backgroundColor: 'orange'
-      },
-    ]
+    if (this.currencyFrom && this.currencyTo) {
+      const from = this.currencyFrom;
+      const to = this.currencyTo;
+      this.dataSet = [
+        {
+          label: this.currencyFrom,
+          data: Object.values(this.historicalData).map((val: any) => val[from]),
+          backgroundColor: 'limegreen'
+        },
+        {
+          label: this.currencyTo,
+          data: Object.values(this.historicalData).map((val: any) => val[to]),
+          backgroundColor: 'orange'
+        },
+      ]
+    }
     // create chart
     this.createChart();
   }
