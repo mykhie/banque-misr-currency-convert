@@ -50,7 +50,7 @@ export class FakerInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const searchParams = new URLSearchParams(request.url);
-    //console.log(searchParams.get("to"));
+    console.log((request.url));
     let fromCurrency = searchParams.get("from") ?? 'USD';
     let toCurrency = searchParams.get("to") ?? 'EUR';
     if (request.method === "GET" && request.url.includes('convert')) {

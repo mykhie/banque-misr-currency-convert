@@ -3,6 +3,7 @@ import {HttpService} from "./http.service";
 import {BehaviorSubject, catchError, delay, map, throwError} from "rxjs";
 import {environment} from "src/environments/environment";
 import {ConversionModel, ConvertedModel} from "@app/models";
+import {HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,8 @@ export class CurrencyService extends HttpService {
 
   getCurrencyConversion(data: ConversionModel): any {
     return this.httpClient.get<any>(`${environment.apiUrl}/convert?to=${data.to}&from=${data.from}&amount=${data.amount}`)
+      //TODO: endpoint is failing due to subscription request with an interceptor
       .pipe(delay(1000), map(res => {
-        console.log(res);
         return this.formatResponseData(res);
       }))
       .pipe(
@@ -53,7 +54,26 @@ export class CurrencyService extends HttpService {
     this.formUpdates.next(formData);
   }
 
-  getHistoricalData(currencyFrom = 'EUR', currencyTo = 'USD') {
+  getHistoricalData(params: ConversionModel) {
+    const queryParams = this.returnQueryParamString(params);
+    return this.httpClient.get<any>(`${environment.apiUrl}/timeseries`,{params:queryParams}).pipe(map(res => {
+      return res;
+    }))
+      .pipe(
+        catchError(error => {
+          return throwError(() => this.handleError(error));
+        })
+      );
 
+  }
+  returnQueryParamString(queryParams:ConversionModel){
+    let params = new HttpParams();
+    for (let key in queryParams) {
+      if (queryParams.hasOwnProperty(key)) {
+        // @ts-ignore
+        params = params.set(key, queryParams[key]);
+      }
+    }
+    return params;
   }
 }

@@ -28,8 +28,15 @@ export class HistoricalDataComponent extends BaseComponent {
     this.currencyService.formUpdates.subscribe(res => {
       this.currencyFrom = res?.from;
       this.currencyTo = res?.to;
-      this.historicalData = this.currencyService.getHistoricalData(res?.from, res?.to);
-      this.returnCalendarDays();
+      this.historicalData = this.currencyService
+        .getHistoricalData(res).subscribe(res => {
+          this.historicalData = res?.rates;
+          console.log(res);
+          this.returnCalendarDays();
+        }, error => {
+          this.showError(error?.message || 'Server error message occurred');
+        });
+
     });
 
   }
