@@ -18,15 +18,15 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
       from: ['', [Validators.required]]
     }
   )
-  submitted: boolean = false;
+  submitted = false;
   currencyList: any;
   currencyDetails: any;
-  isConverting: boolean = false;
+  isConverting = false;
   @Input() showMoreLink = true;
   @Input() fromCurrency: any = undefined;
   @Output() readonly conversionEmitter = new EventEmitter<any>();
   @Output() readonly updateSelectedCurrency = new EventEmitter<any>();
-  formSubmitted: boolean = false;
+  formSubmitted = false;
 
   constructor(injector: Injector) {
     super(injector);
@@ -50,7 +50,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    let data: ConversionModel = {
+    const data: ConversionModel = {
       amount: this.conversionFormControl['amount']!.value || 1,
       from: this.conversionFormControl['from'].value as string,
       to: this.conversionFormControl['to']!.value as string,

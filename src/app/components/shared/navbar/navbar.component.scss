@@ -4,7 +4,6 @@
   width: 100%;
   background-color: black;
   color: white;
-
   z-index: 1000;
 
   & > .nav-container {
@@ -13,6 +12,14 @@
     align-items: center;
     height: 60px;
     justify-content: space-between;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    @media only screen and (max-width: 768px) {
+      margin: 0px auto;
+      padding: 10px;
+      width: calc(100% - 20px);
+    }
 
     & >div .brand {
       color: white;
@@ -32,6 +39,10 @@
         color: white;
         text-decoration: none;
         border: 1px solid white;
+        @media only screen and (max-width: 768px) {
+          padding: 6px;
+          font-size: 12px;
+        }
       }
     }
   }

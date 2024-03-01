@@ -7,5 +7,5 @@ import {Component, Input} from '@angular/core';
 })
 export class PageHeaderComponent {
   @Input() selectedFrequency: string | undefined;
-  @Input() hideBackBtn: boolean = true;
+  @Input() hideBackBtn = true;
 }

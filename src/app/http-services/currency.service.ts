@@ -43,7 +43,7 @@ export class CurrencyService extends HttpService {
 
   getHistoricalData(currencyFrom = 'EUR', currencyTo = 'USD') {
 
-    let data = {
+    const data = {
       "success": true,
       "timeseries": true,
       "start_date": "2012-05-01",

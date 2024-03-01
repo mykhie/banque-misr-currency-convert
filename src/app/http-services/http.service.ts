@@ -15,7 +15,7 @@ export class HttpService {
 
 
   handleError(error: any): any {
-    let errorMsg: string = this.returnHttpErrorMessage(error);
+    const errorMsg: string = this.returnHttpErrorMessage(error);
     return {
       code: error?.status,
       message: errorMsg

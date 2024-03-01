@@ -16,7 +16,7 @@ export class MainCurrencyPageComponent extends BaseComponent{
 
   selectedFromCurrency: any = undefined;
   selectedToCurrency: any = undefined;
-  currencyName: string = '';
+  currencyName = '';
   constructor(injector: Injector) {
     super(injector);
   }
@@ -34,7 +34,7 @@ export class MainCurrencyPageComponent extends BaseComponent{
   }
 
   updateFormPatchAndSubmit() {
-    let formData = {
+    const formData = {
       from: this.selectedFromCurrency,
       to: this.selectedToCurrency,
       amount: 100,

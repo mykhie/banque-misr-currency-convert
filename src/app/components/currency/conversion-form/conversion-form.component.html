@@ -3,7 +3,7 @@
   <div class="card flex-column">
     <form [formGroup]="conversionForm" class="flex-column w-100" (ngSubmit)="getConversion()">
       <div class="flex-row ">
-        <div class="flex-column" style="width: 33%">
+        <div class="flex-column flex-grow-1 amount-input">
           <label class="">Amount</label>
           <input class="text-input"
                  [class.border-danger]="submitted && conversionFormControl['amount'].errors"
@@ -11,15 +11,15 @@
           <small *ngIf="submitted && conversionFormControl['amount'].errors"
                [style.display]="'block'" class="has-error">
 
-            <div *ngIf="conversionFormControl['amount'].errors['required']">
+            <div *ngIf="conversionFormControl['amount'].errors?.['required']">
               Amount is required
             </div>
-            <div *ngIf="conversionFormControl['amount'].errors['pattern']">
+            <div *ngIf="conversionFormControl['amount'].errors?.['pattern']">
               Please enter a valid amount
             </div>
           </small>
         </div>
-        <div class="flex-row flex-grow-1" style="padding: 0 24px">
+        <div class="flex-row w-66" >
           <div class="flex-column flex-grow-1">
             <label class="">From</label>
             <select class="text-input"
@@ -36,7 +36,7 @@
             <small *ngIf="submitted && conversionFormControl['from'].errors"
                  [style.display]="'block'" class="has-error">
 
-              <div *ngIf="conversionFormControl['from'].errors['required']">
+              <div *ngIf="conversionFormControl['from'].errors?.['required']">
                 From currency is required
               </div>
             </small>
@@ -66,7 +66,7 @@
             <small *ngIf="submitted && conversionFormControl['to'].errors"
                  [style.display]="'block'" class="has-error">
 
-              <div *ngIf="conversionFormControl['to'].errors['required']">
+              <div *ngIf="conversionFormControl['to'].errors?.['required']">
                 To currency is required
               </div>
             </small>
@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="flex justify-content-end">
-        <button class="btn" [style.width]="'66%'" type="submit"
+        <button class="btn w-66"  type="submit"
                 [class.disabled]="isConverting||conversionForm.invalid">
           <div class="spinner-border text-white spinner-border-sm" role="status" *ngIf="isConverting">
             <span class="visually-hidden">Loading...</span>

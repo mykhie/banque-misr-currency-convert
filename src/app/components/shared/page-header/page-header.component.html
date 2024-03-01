@@ -1,9 +1,9 @@
 <div class="header">
-  <div class="flex-row align-items-center justify-content-between">
-    <h4 *ngIf="!selectedFrequency">Currency Converter</h4>
-    <h4 class="" *ngIf="selectedFrequency">
+  <div class="flex align-items-center justify-content-between">
+    <h2 *ngIf="!selectedFrequency">Currency Converter</h2>
+    <h2 class="" *ngIf="selectedFrequency">
       {{ selectedFrequency }}
-    </h4>
+    </h2>
     <div class="" *ngIf="hideBackBtn">
       <a [routerLink]="['/']" class="btn ">
         <i class="bi bi-back"></i> Back to Home
