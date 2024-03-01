@@ -4,10 +4,12 @@
   <div class="container">
     <app-page-header [selectedFrequency]="selectedFromCurrency" ></app-page-header>
     <div class="white-main-container">
-      <div class="">
+      <div class="flex-column">
         <app-conversion-form
           (updateSelectedCurrency)="updateSelectedCurrency($event)"
+          (conversionEmitter)="updateConvertedCurrency($event)"
         ></app-conversion-form>
+        <app-currency-details-card [showViewMoreBtn]="false" [currencyDetails]="currentConversionObject" [flexDirection]="'row'"/>
       </div>
       <div class="card" [style.margin-top]="'20px'">
         <app-historical-data class="w-100"

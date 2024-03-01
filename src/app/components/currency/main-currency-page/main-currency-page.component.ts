@@ -13,6 +13,9 @@ export class MainCurrencyPageComponent extends BaseComponent{
   updateSelectedCurrency($event: any) {
     this.fromCurrency = $event;
   }
+  updateConvertedCurrency($event: any) {
+    this.currentConversionObject = $event;
+  }
 
   selectedFromCurrency: any = undefined;
   selectedToCurrency: any = undefined;
@@ -30,7 +33,6 @@ export class MainCurrencyPageComponent extends BaseComponent{
         this.updateFormPatchAndSubmit();
       }
     });
-
   }
 
   updateFormPatchAndSubmit() {
@@ -41,4 +43,5 @@ export class MainCurrencyPageComponent extends BaseComponent{
     };
     this.currencyService.updateConversionForm(formData);
   }
+
 }

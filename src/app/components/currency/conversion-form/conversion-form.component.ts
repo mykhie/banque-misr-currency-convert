@@ -24,6 +24,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
   isConverting = false;
   @Input() showMoreLink = true;
   @Input() fromCurrency: any = undefined;
+  @Input() loadOnFormView = false;
   @Output() readonly conversionEmitter = new EventEmitter<any>();
   @Output() readonly updateSelectedCurrency = new EventEmitter<any>();
   formSubmitted = false;
@@ -37,9 +38,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     this.conversionForm.reset();
     this.currencyService.formUpdates.subscribe((res: any) => {
       this.conversionForm.patchValue(res);
-      if (!this.showMoreLink) {
-        this.getConversion();
-      }
+      this.getConversion();
     })
   }
 
@@ -64,7 +63,6 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
         this.showError(res?.error?.info || 'We failed to convert your currency');
         return;
       }
-      console.log(res);
       this.conversionEmitter.emit(res);
       this.currencyDetails = res;
     }, (error: any) => {
@@ -115,6 +113,6 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
 
   onChangeEmitCurrencyName() {
     this.fromCurrency = this.conversionFormControl['from']?.value;
-    this.updateSelectedCurrency.emit( `${this.fromCurrency} - ${this.currencyList[this.fromCurrency] ?? ''}`);
+    this.updateSelectedCurrency.emit(`${this.fromCurrency} - ${this.currencyList[this.fromCurrency] ?? ''}`);
   }
 }

@@ -11,17 +11,14 @@
           (conversionEmitter)="updateCurrentConversionObject($event)"
           (updateSelectedCurrency)="updateSelectedCurrency($event)"
         ></app-conversion-form>
-
-
-          <app-currency-details-card [currencyDetails]="currentConversionObject" [flexDirection]="'row'"/>
-
+        <app-currency-details-card [currencyDetails]="currentConversionObject" [flexDirection]="'row'"/>
       </div>
       <div class="card" [style.margin-top]="'20px'" *ngIf="currentConversionObject">
         <div class="grid-container">
-            <div *ngFor="let item of arr" class="card flex-grow-1">
-              <app-currency-details-card class="w-100"
-                [currencyDetails]="currentConversionObject" [flexDirection]="'column'"/>
-            </div>
+          <div *ngFor="let item of arr" class="card flex-grow-1">
+            <app-currency-details-card class="w-100"
+                                       [currencyDetails]="currentConversionObject" [flexDirection]="'column'"/>
+          </div>
         </div>
       </div>
     </div>

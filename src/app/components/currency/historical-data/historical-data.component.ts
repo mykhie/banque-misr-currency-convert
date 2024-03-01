@@ -31,6 +31,7 @@ export class HistoricalDataComponent extends BaseComponent {
       this.historicalData = this.currencyService.getHistoricalData(res?.from, res?.to);
       this.returnCalendarDays();
     });
+
   }
 
   returnCalendarDays() {
