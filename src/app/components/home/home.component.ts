@@ -12,7 +12,7 @@ export class HomeComponent {
   fromCurrency: string | undefined = undefined;
 
   updateCurrentConversionObject($evt: ConvertedModel |undefined) {
-    this.currentConversionObject = $evt:;
+    this.currentConversionObject = $evt;
   }
 
   updateSelectedCurrency($event: string|undefined) {
