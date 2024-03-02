@@ -21,7 +21,8 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     }
   )
   submitted = false;
-  currencyList: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  currencyList: any[]=[];
   currencyDetails: ConvertedModel | undefined;
   isConverting = false;
   @Input() showMoreLink = true;
@@ -38,6 +39,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
   override ngOnInit(): void {
     this.getCurrencyList();
     this.conversionForm.reset();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.currencyService.formUpdates.subscribe((res: any) => {
       this.conversionForm.patchValue(res);
       if (!this.showMoreLink) {
@@ -83,6 +85,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
 
   getCurrencyList() {
     this.isLoadingTrue();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.currencyService.getCurrencyList().subscribe((res: any) => {
       this.isLoadingFalse();
       this.currencyList = res;
@@ -97,7 +100,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
       this.showError('Please select both From and To currency');
     }
 
-    let a, b = undefined;
+    let a, b :string|null = null;
     [a, b] = [this.conversionFormControl['from'].value, this.conversionFormControl['to'].value];
     [a, b] = [b, a];
     this.conversionFormControl['from'].setValue(a);

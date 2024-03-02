@@ -75,6 +75,7 @@
       </div>
       <div class="flex justify-content-end">
         <button class="btn w-66"  type="submit"
+                [disabled]="conversionForm.invalid"
                 [class.disabled]="isConverting||conversionForm.invalid">
           <div class="spinner-border text-white spinner-border-sm" role="status" *ngIf="isConverting">
             <span class="visually-hidden">Loading...</span>

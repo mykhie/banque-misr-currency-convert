@@ -14,8 +14,11 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit{
   @Input() currencyTo: string | undefined;
 
   public labels: string[] = [];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   chart: Chart<ChartType, string[], any> | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public historicalData: any = undefined
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public dataSet: any = undefined
   public months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -53,11 +56,13 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit{
       this.dataSet = [
         {
           label: this.currencyFrom,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           data: Object.values(this.historicalData).map((val: any) => val[from]),
           backgroundColor: 'limegreen'
         },
         {
           label: this.currencyTo,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           data: Object.values(this.historicalData).map((val: any) => val[to]),
           backgroundColor: 'orange'
         },

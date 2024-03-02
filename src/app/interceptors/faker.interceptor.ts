@@ -47,6 +47,7 @@ export class FakerInterceptor implements HttpInterceptor {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const searchParams = new URLSearchParams(request.url.split('?')[1]);

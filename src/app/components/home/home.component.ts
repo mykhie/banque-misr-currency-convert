@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ConvertedModel} from "@app/models";
 
 @Component({
   selector: 'app-home',
@@ -7,14 +8,14 @@ import {Component} from '@angular/core';
 })
 export class HomeComponent {
   arr = Array.from(Array(9).keys());
-  currentConversionObject: any = undefined;
+  currentConversionObject: ConvertedModel | undefined= undefined;
   fromCurrency: string | undefined = undefined;
 
-  updateCurrentConversionObject($evt: any) {
+  updateCurrentConversionObject($evt: ConvertedModel |undefined) {
     this.currentConversionObject = $evt;
   }
 
-  updateSelectedCurrency($event: any) {
+  updateSelectedCurrency($event: string|undefined) {
     this.fromCurrency = $event;
   }
 }

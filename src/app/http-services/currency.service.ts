@@ -41,7 +41,9 @@ export class CurrencyService extends HttpService {
       );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getCurrencyList(): any {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.httpClient.get<any>(`${environment.apiUrl}/symbols`).pipe(map(res => {
       return res?.symbols;
     }))
@@ -58,6 +60,7 @@ export class CurrencyService extends HttpService {
 
   getHistoricalData(params: ConversionModel) {
     const queryParams = this.returnQueryParamString(params);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.httpClient.get<any>(`${environment.apiUrl}/timeseries`, {params: queryParams}).pipe(map(res => {
       return res;
     }))
