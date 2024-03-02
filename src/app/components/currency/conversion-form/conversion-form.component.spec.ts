@@ -60,7 +60,6 @@ describe('ConversionFormComponent', () => {
   it('To have input span labels ', () => {
     fixture.componentInstance.ngOnInit();
     const compiled = fixture.debugElement.query(By.css('span'));
-    // more implementation for a mock up service to get the update title
     expect(compiled.nativeElement.textContent.length)
       .toBeGreaterThan(2);
   });
