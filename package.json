@@ -50,10 +50,10 @@
     "lint-staged": "^15.2.2",
     "typescript": "~5.1.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && ng lint && ng test",
-      "pre-push": "ng build --aot true"
-    }
-  }
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
 }
