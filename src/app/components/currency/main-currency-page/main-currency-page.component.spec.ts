@@ -34,6 +34,8 @@ describe('MainCurrencyPageComponent', () => {
   });
   it('should render app-historical-data', () => {
     const compiled = fixture.nativeElement;
+    component.currentConversionObject = {toCurrency: 'USD', fromCurrency: 'EUR', rate: 0.8, result: 0.8, amount: 100,};
+    fixture.detectChanges();
     expect(compiled.querySelector('app-historical-data')).toBeTruthy();
   })
 });

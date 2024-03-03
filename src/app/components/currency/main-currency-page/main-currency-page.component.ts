@@ -47,4 +47,5 @@ export class MainCurrencyPageComponent extends BaseComponent implements OnInit {
     this.currencyService.updateConversionForm(formData);
   }
 
+
 }

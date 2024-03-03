@@ -1,18 +1,22 @@
-
 <div>
 
   <div class="container">
-    <app-page-header [selectedFrequency]="selectedFromCurrency" ></app-page-header>
+    <app-page-header [selectedFrequency]="selectedFromCurrency"></app-page-header>
     <div class="white-main-container">
       <div class="flex-column">
         <app-conversion-form
           (updateSelectedCurrency)="updateSelectedCurrency($event)"
           (conversionEmitter)="updateConvertedCurrency($event)"
         ></app-conversion-form>
-        <app-currency-details-card [showViewMoreBtn]="false" [currencyDetails]="currentConversionObject" [flexDirection]="'row'"/>
+        <app-currency-details-card [showViewMoreBtn]="false" [currencyDetails]="currentConversionObject"
+                                   [flexDirection]="'row'"/>
       </div>
-      <div class="card" [style.margin-top]="'20px'">
-        <app-historical-data class="w-100"
+      <div class="card" [style.margin-top]="'20px'" *ngIf="currentConversionObject">
+        <app-historical-data
+          [currencyFrom]="currentConversionObject?.fromCurrency"
+          [currencyTo]="currentConversionObject?.toCurrency"
+          [amount]="currentConversionObject?.amount||1"
+          class="w-100"
         ></app-historical-data>
       </div>
     </div>

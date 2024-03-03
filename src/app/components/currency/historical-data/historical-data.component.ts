@@ -8,10 +8,11 @@ import Chart from 'chart.js/auto';
   templateUrl: './historical-data.component.html',
   styleUrls: ['./historical-data.component.scss']
 })
-export class HistoricalDataComponent extends BaseComponent implements OnInit{
+export class HistoricalDataComponent extends BaseComponent implements OnInit {
 
   @Input() currencyFrom: string | undefined;
   @Input() currencyTo: string | undefined;
+  @Input() amount: number = 1;
 
   public labels: string[] = [];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,20 +29,16 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit{
 
   override ngOnInit() {
 
-    this.currencyService.formUpdates.subscribe(res => {
-      this.currencyFrom = res?.from;
-      this.currencyTo = res?.to;
-      if (res?.from && res?.to) {
-        this.historicalData = this.currencyService
-          .getHistoricalData(res).subscribe(res => {
-            this.historicalData = res?.rates;
-            console.log(res);
-            this.returnCalendarDays();
-          }, error => {
-            this.showError(error?.message || 'Server error message occurred');
-          });
-      }
-    });
+    if (this.currencyFrom && this.currencyTo) {
+      this.historicalData = this.currencyService
+        .getHistoricalData({amount: this.amount, to: this.currencyTo, from: this.currencyFrom}).subscribe(res => {
+          this.historicalData = res?.rates;
+          console.log(res);
+          this.returnCalendarDays();
+        }, error => {
+          this.showError(error?.message || 'Server error message occurred');
+        });
+    }
 
   }
 
