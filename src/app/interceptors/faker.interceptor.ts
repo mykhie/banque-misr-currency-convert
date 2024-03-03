@@ -5,7 +5,7 @@ import {Observable, of} from "rxjs";
 @Injectable()
 export class FakerInterceptor implements HttpInterceptor {
 
-  private returnCurrency(fromCurrency:string, toCurrency:string) {
+  private returnCurrency(fromCurrency: string, toCurrency: string) {
     return {
       success: true,
       query: {
@@ -50,16 +50,27 @@ export class FakerInterceptor implements HttpInterceptor {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const searchParams = new URLSearchParams(request.url.split('?')[1]);
-    const fromCurrency = searchParams.get("from") ?? 'USD';
-    const toCurrency = searchParams.get("to") ?? 'EUR';
-    console.log(request.url);
-    if (request.method === "GET" && request.url.includes('convert')) {
-      return of(new HttpResponse({status: 200, body: this.returnCurrency(fromCurrency, toCurrency)}));
-    }
-    if (request.method === "GET" && request.url.includes('timeseries')) {
-      return of(new HttpResponse({status: 200, body: this.historicalData(fromCurrency, toCurrency)}));
+    if (request.url.includes('convert') || request.url.includes('timeseries')) {
+      const searchParams = this.returnQueryParams(request.url);
+      const fromCurrency = searchParams?.from ?? 'USD';
+      const toCurrency = searchParams?.to ?? 'EUR';
+      if (request.method === "GET" && request.url.includes('convert')) {
+        return of(new HttpResponse({status: 200, body: this.returnCurrency(fromCurrency, toCurrency)}));
+      }
+      if (request.method === "GET" && request.url.includes('timeseries')) {
+        return of(new HttpResponse({status: 200, body: this.historicalData(fromCurrency, toCurrency)}));
+      }
     }
     return next.handle(request)
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  returnQueryParams(url: string): any {
+    const searchParams = url.split('?')[1];
+    const obj = {};
+    searchParams.split('&').forEach((param) => {
+      const [key, value] = param.split('=');
+      obj[key] = value;
+    });
+    return obj;
   }
 }

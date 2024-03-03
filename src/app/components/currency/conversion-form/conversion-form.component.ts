@@ -42,7 +42,7 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.currencyService.formUpdates.subscribe((res: any) => {
       this.conversionForm.patchValue(res);
-      if (!this.showMoreLink) {
+      if (res) {
         this.getConversion();
       }
     })
@@ -63,7 +63,6 @@ export class ConversionFormComponent extends BaseComponent implements OnInit {
     this.isConverting = true;
     this.conversionEmitter.emit(undefined);
     this.formSubmitted = true;
-    this.currencyService.formUpdates.next(data);
     this.currencyService.getCurrencyConversion(data).subscribe((res: ConvertedModel | ErrorModel) => {
       this.isConverting = false;
       if (typeof res === 'object' && (res as ErrorModel).code) {

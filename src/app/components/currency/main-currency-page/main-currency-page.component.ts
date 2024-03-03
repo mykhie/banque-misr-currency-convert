@@ -42,7 +42,7 @@ export class MainCurrencyPageComponent extends BaseComponent implements OnInit {
     const formData = {
       from: this.selectedFromCurrency ?? 'USD',
       to: this.selectedToCurrency ?? 'EUR',
-      amount: 100,
+      amount: 1,
     };
     this.currencyService.updateConversionForm(formData);
   }

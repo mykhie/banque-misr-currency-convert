@@ -2,6 +2,7 @@ import {Injectable, Injector} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {config} from "../constants/constants"
 import {ErrorModel} from "@app/models/error-model";
+import {ConversionModel} from "@app/models";
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,18 @@ export class HttpService {
     }
   }
 
+  returnQueryString(queryParams: ConversionModel) {
+    let queryString = '';
+    for (const key  in queryParams) {
+      if (Object.prototype.hasOwnProperty.call(queryParams, key)) {
+        queryString += `${key}=${queryParams[key]}&`;
+      }
+    }
+    if (queryString.length > 0) {
+      queryString = `?${queryString.slice(0, -1)}`;
+    }
+
+    return queryString;
+  }
 }
 

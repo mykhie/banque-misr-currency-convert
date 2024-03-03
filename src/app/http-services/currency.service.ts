@@ -30,7 +30,7 @@ export class CurrencyService extends HttpService {
 
   getCurrencyConversion(data: ConversionModel): Observable<ConvertedModel | ErrorModel> {
     return this.httpClient.get<ConversionResponse>(`${environment.apiUrl}/convert?from=${data.from}&to=${data.to}&amount=${data.amount}`)
-      //TODO: endpoint is failing due to subscription request with an interceptor
+      //TODO: endpoint is failing due to subscription, mocking  request with an interceptor
       .pipe(delay(1000), map(res => {
         return this.formatResponseData(res);
       }))
@@ -59,9 +59,9 @@ export class CurrencyService extends HttpService {
   }
 
   getHistoricalData(params: ConversionModel) {
-    const queryParams = this.returnQueryParamString(params);
+    const url = environment.apiUrl+'timeseries'+this.returnQueryString(params);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this.httpClient.get<any>(`${environment.apiUrl}/timeseries`, {params: queryParams}).pipe(map(res => {
+    return this.httpClient.get<any>(url).pipe(map(res => {
       return res;
     }))
       .pipe(
@@ -72,6 +72,8 @@ export class CurrencyService extends HttpService {
 
   }
 
+  //TODO :: move to a utility service
+  //TODO :: this method is not working as expected and needs to be fixed/investigated
   returnQueryParamString(queryParams: ConversionModel) {
     let params = new HttpParams();
     for (const key  in queryParams) {
@@ -81,4 +83,5 @@ export class CurrencyService extends HttpService {
     }
     return params;
   }
+
 }
