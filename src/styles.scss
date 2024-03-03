@@ -5,7 +5,7 @@ body, html {
   left: 0;
   right: 0;
   overflow-x: hidden;
-  background-color: lightgray;
+  background-color: $bodyBgColor;
   .container {
     padding: 20px;
     margin: 60px auto;
@@ -36,7 +36,7 @@ body, html {
 
   .btn {
     border-radius: 10px;
-    background-color: #1a75ff;
+    background-color: $primaryColor;
     display: flex;
     align-items: center;
     height: 40px;
@@ -125,10 +125,9 @@ body, html {
     background-color: lightgray;
   }
   .has-error{
-    color: #ff210b;
+    color: $errorMessageColor;
   }
   .border-danger{
-    border-color: #ff210b;
+    border-color: $errorMessageColor;
   }
-;
 }
