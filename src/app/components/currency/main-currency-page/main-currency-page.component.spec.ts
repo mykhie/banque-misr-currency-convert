@@ -23,4 +23,17 @@ describe('MainCurrencyPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have default value for currencyFrom', () => {
+    expect(component.fromCurrency).toBeUndefined();
+  });
+  it('should have default value for current conversion object', () => {
+    expect(component.currentConversionObject).toBeUndefined();
+  })
+  it('should have default value for selectedFromCurrency', () => {
+    expect(component.selectedFromCurrency).toBeNull();
+  });
+  it('should render app-historical-data', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('app-historical-data')).toBeTruthy();
+  })
 });

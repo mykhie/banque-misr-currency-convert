@@ -35,5 +35,17 @@ describe('HistoricalDataComponent', () => {
   it('should render the component', () => {
     expect(component).toBeTruthy();
   });
+  it('should have default value for currencyFrom', () => {
+    expect(component.currencyFrom).toBeUndefined();
+  });
+  it('should have default value for currencyTo', () => {
+    expect(component.currencyTo).toBeUndefined();
+  });
+  it('should have default value for labels', () => {
+    expect(component.labels).toEqual([]);
+  })
+  it('should have default value for chart', () => {
+    expect(component.chart).toBeUndefined();
+  })
 
 });

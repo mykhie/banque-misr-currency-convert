@@ -23,4 +23,10 @@ describe('ErrorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have default value for error', () => {
+    expect(component.error).toBeUndefined();
+  });
+  it('should have default value for errorMessage', () => {
+    expect(component.errorMessage).toBeUndefined();
+  });
 });

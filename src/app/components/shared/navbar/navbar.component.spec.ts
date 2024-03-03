@@ -22,4 +22,10 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have 2 links', () => {
+    const compiled = fixture.nativeElement;
+    fixture.detectChanges();
+    expect(compiled.querySelector('.links-wrapper').children.length).toBe(2);
+  })
+
 });
