@@ -21,7 +21,6 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit {
   public historicalData: any = undefined
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public dataSet: any = undefined
-  public months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   constructor(injector: Injector) {
     super(injector);
@@ -54,10 +53,7 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit {
   }
 
   returnCalendarDays() {
-    // this loads months
     this.labels = Object.keys(this.historicalData);
-    //this.labels = this.labels.map(mon => this.months[new Date(mon).getMonth()]);
-
     if (this.currencyFrom && this.currencyTo) {
       const from = this.currencyFrom;
       const to = this.currencyTo;
