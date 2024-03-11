@@ -59,7 +59,7 @@ export class CurrencyService extends HttpService {
   }
 
   getHistoricalData(params: ConversionModel) {
-    const url = environment.apiUrl+'timeseries'+this.returnQueryString(params);
+    const url = environment.apiUrl+'/timeseries'+this.returnQueryString(params);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.httpClient.get<any>(url).pipe(map(res => {
       return res;

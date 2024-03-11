@@ -15,7 +15,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ErrorComponent } from './components/shared/error/error.component';
-import {FakerInterceptor, TokenInterceptor} from "@app/interceptors";
+import { TokenInterceptor} from "@app/interceptors";
 import { CurrencyDetailsCardComponent } from './components/currency/currency-details-card/currency-details-card.component';
 import { PageHeaderComponent } from './components/shared/page-header/page-header.component';
 
@@ -44,11 +44,6 @@ import { PageHeaderComponent } from './components/shared/page-header/page-header
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: FakerInterceptor,
-      multi: true
     }
   ],
   bootstrap: [AppComponent]

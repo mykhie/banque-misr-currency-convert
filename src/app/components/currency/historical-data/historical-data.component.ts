@@ -30,12 +30,23 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit {
   override ngOnInit() {
 
     if (this.currencyFrom && this.currencyTo) {
+
+      const params = {
+        amount: this.amount,
+        to: this.currencyTo,
+        from: this.currencyFrom,
+        // data not paginated, hence need to reduce a range, takes long to load to a large date range
+        start_date:'2023-01-01',// TODO: change to dynamic date
+        end_date:'2023-02-31'// TODO: change to dynamic date
+      };
+      this.isLoading=true;
       this.historicalData = this.currencyService
-        .getHistoricalData({amount: this.amount, to: this.currencyTo, from: this.currencyFrom}).subscribe(res => {
+        .getHistoricalData(params).subscribe(res => {
           this.historicalData = res?.rates;
-          console.log(res);
           this.returnCalendarDays();
+          this.isLoading=false;
         }, error => {
+          this.isLoading=false;
           this.showError(error?.message || 'Server error message occurred');
         });
     }
@@ -45,7 +56,7 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit {
   returnCalendarDays() {
     // this loads months
     this.labels = Object.keys(this.historicalData);
-    this.labels = this.labels.map(mon => this.months[new Date(mon).getMonth()]);
+    //this.labels = this.labels.map(mon => this.months[new Date(mon).getMonth()]);
 
     if (this.currencyFrom && this.currencyTo) {
       const from = this.currencyFrom;
