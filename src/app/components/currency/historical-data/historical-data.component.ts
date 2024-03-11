@@ -12,7 +12,7 @@ export class HistoricalDataComponent extends BaseComponent implements OnInit {
 
   @Input() currencyFrom: string | undefined;
   @Input() currencyTo: string | undefined;
-  @Input() amount: number = 1;
+  @Input() amount = 1;
 
   public labels: string[] = [];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
